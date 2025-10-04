@@ -1,0 +1,94 @@
+# Task Management — Secure Messaging App
+
+---
+
+## ✅ Project Rules
+- One-to-one private messaging only  
+- Windows desktop only  
+- No accounts, no sign-ins, no backups  
+- Messages must always stay encrypted  
+
+---
+
+## 👥 Team
+- **Cesar** → Focus on **encryption (security) and networking (sending messages)**  
+- **Luke** → Focus on **user interface (UI) and local storage (saving chats)**  
+
+---
+
+## 📌 Phase 1 — Encryption (Cesar)
+Tasks:  
+- [ ] Create a way for the app to generate a **private key** (like a digital ID)  
+- [ ] Make sure each message is **locked (encrypted)** before it leaves the device  
+- [ ] Make sure messages can be **unlocked (decrypted)** by the other person only  
+- [ ] Test sending a sample message between two apps  
+
+**Goal:** Messages can be sent securely without anyone else reading them.  
+
+---
+
+## 📌 Phase 2 — Networking (Cesar)
+Tasks:  
+- [ ] Let two computers connect directly (peer-to-peer)  
+- [ ] If direct connection doesn’t work, add a simple “relay” that just passes along encrypted messages (it can’t read them)  
+- [ ] Handle errors (lost connection, retry)  
+
+**Goal:** Two computers can talk to each other in real time.  
+
+---
+
+## 📌 Phase 3 — User Interface (Luke)
+Tasks:  
+- [ ] Build a **chat window** with text box and send button  
+- [ ] Add a **public key exchange screen** (QR code or copy/paste text)  
+- [ ] Show when a message is sent/received  
+- [ ] Add a simple settings screen (view your public key)  
+
+**Goal:** A normal user can send and receive messages easily.  
+
+---
+
+## 📌 Phase 4 — Local Storage (Luke)
+Tasks:  
+- [ ] Decide if messages are saved on the computer or disappear when the app closes  
+- [ ] If saved, make sure they are **stored encrypted** (locked)  
+- [ ] Add an option to clear all stored messages  
+
+**Goal:** Messages saved on the device remain private.  
+
+---
+
+## 📌 Phase 5 — Security & Testing (Both)
+Tasks:  
+- [ ] Double-check that no plaintext (unlocked messages) ever leave the device  
+- [ ] Try to “hack” the app by intercepting messages (should be unreadable)  
+- [ ] Make sure nothing sensitive is saved in logs or temporary files  
+
+**Goal:** Prove the app is truly private.  
+
+---
+
+## 📌 Phase 6 — Release (Both)
+Tasks:  
+- [ ] Package the app into a Windows installer (.exe)  
+- [ ] Write a **Quick Start Guide** for normal users  
+- [ ] Publish the app on GitHub Releases  
+
+**Goal:** Anyone can download, install, and start using the app.  
+
+---
+
+## 📊 Timeline (Simple View)
+- **Week 1–2:** Cesarb uilds encryption system  
+- **Week 3–4:** Cesar adds networking, Luke starts UI  
+- **Week 5:** Luke finishes UI  
+- **Week 6:** Luke adds storage (optional)  
+- **Week 7:** Both test and improve security  
+- **Week 8:** Both release first version  
+
+---
+
+
+- **M4 (Week 6):** Local storage added (optional)  
+- **M5 (Week 7):** Security testing complete  
+- **M6 (Week 8):** MVP release available for download  
