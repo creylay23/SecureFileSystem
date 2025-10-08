@@ -4,12 +4,6 @@ These rules are set to keep the project secure, manageable, and easy to understa
 
 ---
 
-## 🎯 Purpose
-
-This document lays out the **principles, policies, and constraints** we adhere to while building our secure messaging app. Everyone working (now or in the future) should follow them.
-
----
-
 ## 1. Privacy First
 
 - All encryption happens **on the user’s device**. This project shall never send or store plaintext messages or keys on any server.  
