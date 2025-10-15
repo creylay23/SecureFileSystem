@@ -1,98 +1,110 @@
-# Secure Messaging App — Project Planning
+Phase 1: Planning & Setup 
 
-## 1. Project Overview
-This repository contains the source code and documentation for a **Windows-only encrypted messaging app**.  
+• 	Always read  before starting any task. 
+• 	Check  before coding. Add missing tasks with today’s date. 
+• 	Use consistent naming conventions and file structure. 
+• 	Never exceed 500 lines per file. Split into modules as needed. 
 
-The app is designed to be lightweight, private, and simple:
-- One-to-one encrypted messaging only  
-- No accounts, no login, no registration  
-- No databases or servers storing messages  
-- No backups or recovery mechanisms  
-- Single device per user (no sync across devices)  
-- Download, install, exchange keys, and start messaging  
+📤 Push to GitHub when: 
 
----
+• 	Initial folder structure is created 
+• 	, , and  are drafted 
+• 	Project roles and architecture are defined 
 
-## 2. Goals
-- Provide **end-to-end encrypted messaging** between two Windows devices.  
-- Ensure all cryptographic keys are **generated and stored locally**.  
-- Minimize user friction: **no setup, no accounts, no cloud**.  
-- Ensure that even the app developers cannot access user messages.  
+🟨 Phase 2: Authentication & Role Management 
+• 	Use  or  for password hashing. 
+• 	Implement role-based access control (Doctor, Nurse, Admin). 
+• 	Store credentials securely in SQLite using parameterized queries. 
 
----
+📤 Push to GitHub when: 
+• 	Login form and role logic are implemented 
+• 	Password hashing is functional 
+• 	Role-based access is enforced in backend and GUI 
+• 	Basic unit tests for login and access control are written 
 
-## 3. Scope
-**In Scope**
-- Local key generation (X25519 for encryption, Ed25519 for signatures)  
-- Encrypted messaging (AES-GCM or ChaCha20-Poly1305)  
-- Peer-to-peer messaging over TCP/UDP sockets  
-- Optional relay server for NAT traversal (forwards ciphertext only)  
-- Windows desktop client (C#/WPF, WinUI, or Electron)  
 
-**Out of Scope**
-- Group messaging  
-- Multi-device sync  
-- Accounts or authentication services  
-- Backups, recovery, or key escrow  
-- Analytics or telemetry  
+🟧 Phase 3: Encryption & File Handling 
 
----
+• 	Use AES-256 for encryption of files and messages. 
+• 	Generate secure keys per session or user. 
+• 	Add SHA-256 hash for file integrity checks. 
+• 	Validate file size and type before uploading. 
 
-## 4. Deliverables
-- **Windows executable (.exe installer)** for end users  
-- **Crypto module**: local key generation, encryption, decryption  
-- **Networking module**: peer-to-peer communication  
-- **UI module**: chat window, key exchange screen  
-- **Optional local encrypted storage** for chat history  
+📤 Push to GitHub when: 
 
----
+• 	Encryption and decryption functions are working 
+• 	File upload/download logic is in place 
+• 	Integrity checks are implemented 
+• 	Encryption tests are added 
 
-## 5. Security Model
-- Each client generates a **key pair** on first launch.  
-- Users exchange public keys (via QR code, copy-paste, or file).  
-- Session keys derived with **ECDH (X25519)**.  
-- All messages encrypted with **AES-GCM** or **ChaCha20-Poly1305**.  
-- Decryption only occurs on the recipient’s device.  
 
----
+🟩 Phase 4: Messaging System 
 
-## 6. Architecture Overview
-**Client (Windows app)**
-- Crypto module: keygen, session management, encryption/decryption  
-- Networking module: direct socket communication, relay fallback  
-- UI module: chat interface, key exchange, status indicators  
-- Local storage (optional): encrypted file or SQLite DB  
+• 	Encrypt messages before storing or sending. 
+• 	Display message history per user. 
+• 	Limit message length and sanitize input. 
 
-**Relay Server (optional)**
-- Forwards encrypted payloads if direct peer-to-peer fails  
-- Does not log or store plaintext messages  
 
----
+📤 Push to GitHub when: 
 
-## 7. Risks & Mitigation
-- **NAT traversal problems** → Provide optional relay server fallback  
-- **Device loss = data loss** → Accepted (no backups by design)  
-- **Compromised device** → Cannot be prevented by app; user is responsible for device security  
-- **User key exchange errors** → Mitigated with QR code or checksum verification  
+• 	Messaging module is functional 
+• 	GUI displays messages with timestamps 
+• 	Message encryption and retrieval are tested 
+• 	Input validation is added 
 
----
 
-## 8. Timeline (High-Level)
-- **Week 1–2:** Implement crypto module (keygen, encryption, decryption)  
-- **Week 3–4:** Implement networking (peer-to-peer + relay fallback)  
-- **Week 5:** Develop Windows UI (chat + key exchange)  
-- **Week 6:** Add optional encrypted local storage  
-- **Week 7:** Security testing and bug fixes  
-- **Week 8:** Build installer and release MVP  
+🟫 Phase 5: GUI Development 
 
----
+• 	Use Tkinter or PyQt5 for the GUI. 
+• 	Implement error handling and alerts. 
+• 	Ensure GUI responsiveness and usability. 
 
-## 9. Success Criteria
-- Messages remain encrypted end-to-end.  
-- No plaintext leaves the device.  
-- App runs without requiring accounts, logins, or external services.  
-- Minimal setup: install → exchange keys → chat.  
+📤 Push to GitHub when: 
 
----
+• 	GUI layout includes login, file transfer, messaging, and logs 
+• 	All buttons and forms are wired to backend logic 
+• 	GUI tested on multiple screen sizes 
+• 	Visual polish and error handling are added 
+ 
 
-## 10. Repository Structure (planned) 
+🟪 Phase 6: Audit Logging & Compliance 
+
+• 	Log all user actions with timestamps. 
+• 	Store logs in SQLite and make them tamper-resistant. 
+• 	Add log filtering by user, date, and action. 
+
+📤 Push to GitHub when: 
+
+• 	Audit logging is implemented across modules 
+• 	Logs are stored and retrievable 
+• 	Compliance notes are drafted in  
+• 	GUI includes log viewer 
+
+
+🟥 Phase 7: Testing & Documentation 
+
+• 	Write Pytest unit tests for every module. 
+• 	Mock sensitive operations during testing. 
+• 	Update , , and  after each feature. 
+• 	Comment non-obvious logic with  explanations. 
+
+📤 Push to GitHub when: 
+
+• 	All modules have basic test coverage 
+• 	Documentation is updated 
+• 	Project is stable enough for internal review or demo 
+
+ 
+⚫ Phase 8: Final Polish & Deployment 
+
+• 	Run full system tests and simulate hospital workflows. 
+• 	Record a demo walkthrough. 
+• 	Prepare resume bullet points and LinkedIn summary. 
+
+📤 Final GitHub Push: 
+
+• 	After full system test passes 
+• 	Demo is recorded and linked in  
+• 	Project is tagged with a release version (e.g., ) 
+• 	Backup branch is created (e.g., ) 
+• 	Final documentation and compliance notes are complete 
