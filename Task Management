@@ -1,94 +1,203 @@
-# Task Management — Secure Messaging App
+ Task Management — Secure File & Messaging Transfer System 
 
----
+This file tracks tasks, responsibilities, and checkpoints for the project. It complements  (architecture & phases) and  (standards & constraints). 
 
-## ✅ Project Rules
-- One-to-one private messaging only  
-- Windows desktop only  
-- No accounts, no sign-ins, no backups  
-- Messages must always stay encrypted  
+  
 
----
+✅ Core Rules (from Project Rules) 
 
-## 👥 Team
-- **Cesar** → Focus on **encryption (security) and networking (sending messages)**  
-- **Luke** → Focus on **user interface (UI) and local storage (saving chats)**  
+• 	One-to-one private messaging only 
 
----
+• 	Windows desktop only 
 
-## 📌 Phase 1 — Encryption (Cesar)
-Tasks:  
-- [ ] Create a way for the app to generate a **private key** (like a digital ID)  
-- [ ] Make sure each message is **locked (encrypted)** before it leaves the device  
-- [ ] Make sure messages can be **unlocked (decrypted)** by the other person only  
-- [ ] Test sending a sample message between two apps  
+• 	No accounts, no sign-ins, no backups 
 
-**Goal:** Messages can be sent securely without anyone else reading them.  
+• 	Messages must always stay encrypted 
 
----
+• 	Push to GitHub at phase milestones and after stable test passes 
 
-## 📌 Phase 2 — Networking (Cesar)
-Tasks:  
-- [ ] Let two computers connect directly (peer-to-peer)  
-- [ ] If direct connection doesn’t work, add a simple “relay” that just passes along encrypted messages (it can’t read them)  
-- [ ] Handle errors (lost connection, retry)  
+  
 
-**Goal:** Two computers can talk to each other in real time.  
+👥 Team Roles 
 
----
+• 	Cesar → Encryption, authentication, networking, compliance 
 
-## 📌 Phase 3 — User Interface (Luke)
-Tasks:  
-- [ ] Build a **chat window** with text box and send button  
-- [ ] Add a **public key exchange screen** (QR code or copy/paste text)  
-- [ ] Show when a message is sent/received  
-- [ ] Add a simple settings screen (view your public key)  
+• 	Luke → User interface (UI), local storage, usability polish 
 
-**Goal:** A normal user can send and receive messages easily.  
+• 	Both → Testing, documentation, release packaging 
 
----
+  
 
-## 📌 Phase 4 — Local Storage (Luke)
-Tasks:  
-- [ ] Decide if messages are saved on the computer or disappear when the app closes  
-- [ ] If saved, make sure they are **stored encrypted** (locked)  
-- [ ] Add an option to clear all stored messages  
+📌 Phase 1 — Planning & Setup (Both) 
 
-**Goal:** Messages saved on the device remain private.  
+Tasks 
 
----
+• 	[ ] Create initial folder structure (, , ) 
 
-## 📌 Phase 5 — Security & Testing (Both)
-Tasks:  
-- [ ] Double-check that no plaintext (unlocked messages) ever leave the device  
-- [ ] Try to “hack” the app by intercepting messages (should be unreadable)  
-- [ ] Make sure nothing sensitive is saved in logs or temporary files  
+• 	[ ] Draft , , and  
 
-**Goal:** Prove the app is truly private.  
+• 	[ ] Configure  (exclude keys, logs, build artifacts) 
 
----
+• 	[ ] Initialize GitHub repo and first commit 
 
-## 📌 Phase 6 — Release (Both)
-Tasks:  
-- [ ] Package the app into a Windows installer (.exe)  
-- [ ] Write a **Quick Start Guide** for normal users  
-- [ ] Publish the app on GitHub Releases  
+Goal: Project skeleton ready for development. 
 
-**Goal:** Anyone can download, install, and start using the app.  
+📤 Push to GitHub: After repo setup and docs are drafted. 
 
----
+  
 
-## 📊 Timeline (Simple View)
-- **Week 1–2:** Cesarb uilds encryption system  
-- **Week 3–4:** Cesar adds networking, Luke starts UI  
-- **Week 5:** Luke finishes UI  
-- **Week 6:** Luke adds storage (optional)  
-- **Week 7:** Both test and improve security  
-- **Week 8:** Both release first version  
+📌 Phase 2 — Authentication & Role Management (Cesar) 
 
----
+Tasks 
 
+• 	[ ] Implement password hashing ( or ) 
 
-- **M4 (Week 6):** Local storage added (optional)  
-- **M5 (Week 7):** Security testing complete  
-- **M6 (Week 8):** MVP release available for download  
+• 	[ ] Add role-based access control (Doctor, Nurse, Admin) 
+
+• 	[ ] Secure credential storage in SQLite (parameterized queries) 
+
+• 	[ ] Write unit tests for login, hashing, and role enforcement 
+
+Goal: Secure login and role system in place. 
+
+📤 Push to GitHub: After login + role tests pass. 
+
+  
+
+📌 Phase 3 — Encryption & File Handling (Cesar) 
+
+Tasks 
+
+• 	[ ] Implement AES-256 encryption/decryption functions 
+
+• 	[ ] Add SHA-256 integrity checks for files 
+
+• 	[ ] Build file upload/download logic 
+
+• 	[ ] Write unit tests (success, tampered, failure cases) 
+
+Goal: Files can be securely transferred and verified. 
+
+📤 Push to GitHub: After encryption + file tests pass. 
+
+  
+
+📌 Phase 4 — Messaging System (Cesar) 
+
+Tasks 
+
+• 	[ ] Encrypt messages before storage/transfer 
+
+• 	[ ] Display per-user message history 
+
+• 	[ ] Sanitize input and enforce message length limits 
+
+• 	[ ] Write messaging tests (send, receive, tampered) 
+
+Goal: Secure, encrypted messaging between users. 
+
+📤 Push to GitHub: After messaging tests pass. 
+
+  
+
+📌 Phase 5 — GUI Development (Luke) 
+
+Tasks 
+
+• 	[ ] Build login, file transfer, messaging, and log panels 
+
+• 	[ ] Add key exchange screen (QR code or copy/paste) 
+
+• 	[ ] Implement error handling and alerts 
+
+• 	[ ] Test GUI responsiveness on multiple screen sizes 
+
+Goal: Usable, responsive interface for all features. 
+
+📤 Push to GitHub: After GUI is functional and tested. 
+
+  
+
+📌 Phase 6 — Audit Logging & Compliance (Both) 
+
+Tasks 
+
+• 	[ ] Log all user actions with timestamps 
+
+• 	[ ] Store logs securely in SQLite (tamper-resistant) 
+
+• 	[ ] Add log filtering (user, date, action) 
+
+• 	[ ] Draft compliance notes in  
+
+Goal: Full audit trail for compliance. 
+
+📤 Push to GitHub: After logging + compliance docs are complete. 
+
+  
+
+📌 Phase 7 — Testing & Documentation (Both) 
+
+Tasks 
+
+• 	[ ] Write Pytest unit tests for all modules 
+
+• 	[ ] Mock sensitive operations in tests 
+
+• 	[ ] Update , , and  
+
+• 	[ ] Add inline  comments for design decisions 
+
+Goal: Stable, testable, well-documented system. 
+
+📤 Push to GitHub: After all tests pass and docs are updated. 
+
+  
+
+📌 Phase 8 — Final Polish & Deployment (Both) 
+
+Tasks 
+
+• 	[ ] Run full system tests simulating hospital workflows 
+
+• 	[ ] Record demo walkthrough (login → file transfer → messaging → logs) 
+
+• 	[ ] Package Windows installer () 
+
+• 	[ ] Tag release () and create  branch 
+
+Goal: MVP ready for distribution. 
+
+📤 Final GitHub Push: After full system test and release packaging. 
+
+  
+
+📊 Timeline (High-Level) 
+
+• 	Week 1–2: Planning + Authentication 
+
+• 	Week 3–4: Encryption + Messaging 
+
+• 	Week 5: GUI development 
+
+• 	Week 6: Audit logging + compliance 
+
+• 	Week 7: Testing + documentation 
+
+• 	Week 8: Final polish + release 
+
+  
+
+🎯 Milestones 
+
+• 	M1 (Week 2): Authentication complete 
+
+• 	M2 (Week 4): Encryption + Messaging functional 
+
+• 	M3 (Week 5): GUI integrated 
+
+• 	M4 (Week 6): Audit logging complete 
+
+• 	M5 (Week 7): Full test coverage + docs updated 
+
+• 	M6 (Week 8): MVP release available 
