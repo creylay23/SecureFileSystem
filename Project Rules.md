@@ -1,87 +1,131 @@
-# Project Rules & Guidelines
+1. Project Awareness & Context 
 
-These rules are set to keep the project secure, manageable, and easy to understand for both technical and non-technical contributors.
+•  Always read  before starting any new task. 
 
----
+•  Always check  before coding. If the task isn’t listed, add it with today’s date. 
 
-## 1. Privacy First
+•  Use consistent naming conventions, file structure, and architecture patterns as defined in . 
 
-- All encryption happens **on the user’s device**. This project shall never send or store plaintext messages or keys on any server.  
-- No telemetry, analytics, or usage tracking by default. If we do ever add any reporting/logging, it must be opt-in and anonymized.  
-- We minimize metadata: only the bare minimum needed to make messaging work (e.g. delivery status), and only encrypted or obfuscated where possible.
+•  Never exceed 500 lines per file. Split into modules when needed. 
 
----
+  
 
-## 2. Simplicity & Transparency
+🔐 2. Privacy & Security First 
 
-- We avoid hidden features: if a user loses their device or uninstalls the app, *all data is lost*. That is clearly documented.  
-- No accounts, no logins, no registration. The app must be usable out-of-the-box.  
-- All UI text should be in plain language. Avoid technical jargon in the user experience.
+•  All encryption must happen locally on the user’s device. 
 
----
+•  No plaintext messages, keys, or sensitive data may be sent or stored on any server. 
 
-## 3. Security Discipline
+•  No telemetry, analytics, or tracking by default. If logging is added, it must be opt-in and anonymized. 
 
-- Use well-known, vetted crypto libraries (no custom cryptography).  
-- Every security-sensitive change (e.g. changes in key handling, encryption modes, storage) must be code-reviewed by both team members.  
-- Because this is a small team, pair-review any critical code (crypto, networking).  
-- Secrets (private keys, etc.) must never be committed to the repository or exposed in logs or error messages.
+•  Use vetted crypto libraries only (, , , ). No custom cryptography. 
 
----
+•  Secrets (keys, credentials) must never be committed to GitHub. Store them in environment variables or secure local configs. 
 
-## 4. Clear Ownership
+  
 
-- Each feature or task must have a clear owner (Person A or Person B).  
-- If someone changes a component owned by the other (for example, UI touches crypto data), they must communicate and coordinate first.  
-- Document in commit messages which feature/task the change is for.
+🧱 3. Code Structure & Modularity 
 
----
+•  Separate modules by responsibility: 
 
-## 5. Modular & Testable Components
+•   → Authentication & roles 
 
-- Crypto, networking, storage, and UI must be separated into modules.  
-- Each module should have unit tests. For crypto and networking especially, include test cases covering correct behavior and error/failure cases.  
-- Avoid tight coupling: e.g., UI should not directly invoke low-level encryption calls; instead use interfaces/abstractions.
+•   → Encryption/decryption 
 
----
+•   → File upload/download 
 
-## 6. Fail Safely
+•   → Secure text messaging 
 
-- Whenever an error or unexpected input occurs (e.g. corrupted ciphertext, connection drop), fail in a secure way: do not crash exposing private data.  
-- Provide clear error messages to the user (in simple terms: “Failed to send message,” “Couldn’t decrypt message,” etc.).  
-- Avoid partial success states where some data is plaintext while other parts are encrypted.
+•   → Logging & compliance 
 
----
+•   → User interface 
 
-## 7. Version Control & Secrets
+•  Avoid tight coupling: UI should not directly call low-level crypto functions. Use abstractions/interfaces. 
 
-- Use Git for version control.  
-- Add a `.gitignore` with rules to exclude keys, debug logs, build artifacts.  
-- Any secret keys (for testing only) must be stored in environment variables or a secure local config not tracked by Git.
+•  Each module must have unit tests covering success, edge, and failure cases. 
 
----
+  
 
-## 8. Documentation & User Clarity
+🧪 4. Testing & Reliability 
 
-- Every module must have a README or comments explaining its purpose, inputs, and outputs.  
-- The main `README.md` for the project must include a clear **“What the app does (and what it doesn’t)”** section.  
-- Provide a **Quick Start Guide** so a non-technical user can install and start using without reading code.
+•  Every new function or feature must include Pytest unit tests. 
 
----
+•  Tests must live in  and mirror the main app structure. 
 
-## 9. Continuous Review & Refactoring
+•  Always mock sensitive operations (encryption, DB, file I/O) in tests. 
 
-- Every few sprints, revisit core modules (crypto, networking) for code cleanup, security hardening, and performance improvements.  
-- If a part of the design no longer fits or is overly complex, be willing to refactor even if it’s worked so far.
+•  After updating logic, check if existing tests need updates. 
 
----
+  
 
-## 10. Ethical Use & Limits
+⚠️ 5. Fail Safely 
 
-- The app’s intended use is private, peer-to-peer messaging. It should not be used to facilitate illegal activity.  
-- If you find a security flaw or vulnerability, **do not publish it publicly** before responsibly disclosing it to the team and planning a fix.  
-- Respect user privacy. Do not add hidden logging or backdoors, even “for trust”.
+•  On errors (e.g., corrupted ciphertext, dropped connection), fail securely without exposing sensitive data. 
 
----
+•  Provide clear, user-friendly error messages (e.g., “Could not decrypt message”). 
 
-_By following these rules, we maintain trust, security, clarity, and consistency as we build._  
+•  Avoid partial success states (e.g., some data decrypted, some not). 
+
+  
+
+📂 6. Version Control & GitHub Rules 
+
+•  Use Git for version control. 
+
+•  Maintain a  to exclude keys, logs, and build artifacts. 
+
+•  Push to GitHub at the end of each phase milestone (see ). 
+
+•  Tag stable versions (e.g., , , ). 
+
+•  Create backup branches for stable checkpoints (e.g., , ). 
+
+•  Commit messages must reference the feature or task (e.g., ). 
+
+  
+
+📚 7. Documentation & Clarity 
+
+•  Every module must include docstrings and inline comments for non-obvious logic. 
+
+•  Use  comments to explain design decisions. 
+
+•  Update , , and  after each feature. 
+
+•  Provide a Quick Start Guide in  for non-technical users. 
+
+  
+
+🔁 8. Continuous Review & Refactoring 
+
+•  Revisit core modules (auth, crypto, networking) every sprint for cleanup and hardening. 
+
+•  Refactor if design becomes overly complex or no longer fits requirements. 
+
+•  Optimize for maintainability and readability over premature optimization. 
+
+  
+
+⚖️ 9. Ethical Use & Limits 
+
+•  The app is intended for secure healthcare and private communication. 
+
+•  It must not be used to facilitate illegal activity. 
+
+•  If a vulnerability is found, disclose responsibly and fix before public release. 
+
+•  No hidden logging, backdoors, or “trust” overrides. 
+
+  
+
+🧠 10. AI Assistant Behavior Rules 
+
+•  Never assume missing context — ask clarifying questions. 
+
+•  Never hallucinate libraries or functions — only use verified Python packages. 
+
+•  Always confirm file paths and module names exist before referencing. 
+
+•  Never overwrite or delete existing code unless explicitly instructed or listed in . 
+
+•  Always update  after completing or discovering new tasks. 
