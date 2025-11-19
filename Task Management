@@ -1,0 +1,203 @@
+ Task Management — Secure File & Messaging Transfer System 
+
+This file tracks tasks, responsibilities, and checkpoints for the project. It complements  (architecture & phases) and  (standards & constraints). 
+
+  
+
+✅ Core Rules (from Project Rules) 
+
+• 	One-to-one private messaging only 
+
+• 	Windows desktop only 
+
+• 	No accounts, no sign-ins, no backups 
+
+• 	Messages must always stay encrypted 
+
+• 	Push to GitHub at phase milestones and after stable test passes 
+
+  
+
+👥 Team Roles 
+
+• 	Cesar → Encryption, authentication, networking, compliance 
+
+• 	Luke → User interface (UI), local storage, usability polish 
+
+• 	Both → Testing, documentation, release packaging 
+
+  
+
+📌 Phase 1 — Planning & Setup (Both) 
+
+Tasks 
+
+• 	[ ] Create initial folder structure (, , ) 
+
+• 	[ ] Draft , , and  
+
+• 	[ ] Configure  (exclude keys, logs, build artifacts) 
+
+• 	[ ] Initialize GitHub repo and first commit 
+
+Goal: Project skeleton ready for development. 
+
+📤 Push to GitHub: After repo setup and docs are drafted. 
+
+  
+
+📌 Phase 2 — Authentication & Role Management (Cesar) 
+
+Tasks 
+
+• 	[ ] Implement password hashing ( or ) 
+
+• 	[ ] Add role-based access control (Doctor, Nurse, Admin) 
+
+• 	[ ] Secure credential storage in SQLite (parameterized queries) 
+
+• 	[ ] Write unit tests for login, hashing, and role enforcement 
+
+Goal: Secure login and role system in place. 
+
+📤 Push to GitHub: After login + role tests pass. 
+
+  
+
+📌 Phase 3 — Encryption & File Handling (Cesar) 
+
+Tasks 
+
+• 	[ ] Implement AES-256 encryption/decryption functions 
+
+• 	[ ] Add SHA-256 integrity checks for files 
+
+• 	[ ] Build file upload/download logic 
+
+• 	[ ] Write unit tests (success, tampered, failure cases) 
+
+Goal: Files can be securely transferred and verified. 
+
+📤 Push to GitHub: After encryption + file tests pass. 
+
+  
+
+📌 Phase 4 — Messaging System (Cesar) 
+
+Tasks 
+
+• 	[ ] Encrypt messages before storage/transfer 
+
+• 	[ ] Display per-user message history 
+
+• 	[ ] Sanitize input and enforce message length limits 
+
+• 	[ ] Write messaging tests (send, receive, tampered) 
+
+Goal: Secure, encrypted messaging between users. 
+
+📤 Push to GitHub: After messaging tests pass. 
+
+  
+
+📌 Phase 5 — GUI Development (Luke) 
+
+Tasks 
+
+• 	[ ] Build login, file transfer, messaging, and log panels 
+
+• 	[ ] Add key exchange screen (QR code or copy/paste) 
+
+• 	[ ] Implement error handling and alerts 
+
+• 	[ ] Test GUI responsiveness on multiple screen sizes 
+
+Goal: Usable, responsive interface for all features. 
+
+📤 Push to GitHub: After GUI is functional and tested. 
+
+  
+
+📌 Phase 6 — Audit Logging & Compliance (Both) 
+
+Tasks 
+
+• 	[ ] Log all user actions with timestamps 
+
+• 	[ ] Store logs securely in SQLite (tamper-resistant) 
+
+• 	[ ] Add log filtering (user, date, action) 
+
+• 	[ ] Draft compliance notes in  
+
+Goal: Full audit trail for compliance. 
+
+📤 Push to GitHub: After logging + compliance docs are complete. 
+
+  
+
+📌 Phase 7 — Testing & Documentation (Both) 
+
+Tasks 
+
+• 	[ ] Write Pytest unit tests for all modules 
+
+• 	[ ] Mock sensitive operations in tests 
+
+• 	[ ] Update , , and  
+
+• 	[ ] Add inline  comments for design decisions 
+
+Goal: Stable, testable, well-documented system. 
+
+📤 Push to GitHub: After all tests pass and docs are updated. 
+
+  
+
+📌 Phase 8 — Final Polish & Deployment (Both) 
+
+Tasks 
+
+• 	[ ] Run full system tests simulating hospital workflows 
+
+• 	[ ] Record demo walkthrough (login → file transfer → messaging → logs) 
+
+• 	[ ] Package Windows installer () 
+
+• 	[ ] Tag release () and create  branch 
+
+Goal: MVP ready for distribution. 
+
+📤 Final GitHub Push: After full system test and release packaging. 
+
+  
+
+📊 Timeline (High-Level) 
+
+• 	Week 1–2: Planning + Authentication 
+
+• 	Week 3–4: Encryption + Messaging 
+
+• 	Week 5: GUI development 
+
+• 	Week 6: Audit logging + compliance 
+
+• 	Week 7: Testing + documentation 
+
+• 	Week 8: Final polish + release 
+
+  
+
+🎯 Milestones 
+
+• 	M1 (Week 2): Authentication complete 
+
+• 	M2 (Week 4): Encryption + Messaging functional 
+
+• 	M3 (Week 5): GUI integrated 
+
+• 	M4 (Week 6): Audit logging complete 
+
+• 	M5 (Week 7): Full test coverage + docs updated 
+
+• 	M6 (Week 8): MVP release available 
