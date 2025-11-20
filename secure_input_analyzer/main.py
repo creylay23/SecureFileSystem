@@ -1,26 +1,7 @@
 import tkinter as tk
-from keylogger import Keylogger
-from password_checker import PasswordChecker
-from ui import SecureInputUI
+from ui import SecureInputApp
 
-def main():
-    # Instantiate the backend modules
-    keylogger = Keylogger()
-    password_checker = PasswordChecker()
-
-    # Create the main Tkinter window
+if __name__ == "__main__":
     root = tk.Tk()
-
-    # Instantiate the UI, passing the backend methods as callbacks
-    app = SecureInputUI(
-        root,
-        keylogger_start_cb=keylogger.start,
-        keylogger_stop_cb=keylogger.stop,
-        password_analyzer_cb=password_checker.analyze
-    )
-
-    # Start the Tkinter event loop
+    app = SecureInputApp(root)
     root.mainloop()
-
-if __name__ == '__main__':
-    main()
